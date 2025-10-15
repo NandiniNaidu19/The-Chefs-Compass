@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Chef's Compass - Recipes</title>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+  />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Lora', serif;
+      background-color: #f7f3f1;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    /* Site Name Header above nav */
+    #site-title {
+      background: linear-gradient(90deg, #2c3e50, #3498db);
+      color: white;
+      text-align: center;
+      padding: 15px 0;
+      font-family: 'Merriweather', serif;
+      font-size: 2.5em;
+      letter-spacing: 3px;
+      font-weight: bold;
+      text-transform: uppercase;
+      user-select: none;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+
+    nav {
+      background: linear-gradient(90deg, #2c3e50, #3498db);
+      padding: 15px 40px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+
+    nav ul {
+      display: flex;
+      justify-content: center;
+      list-style: none;
+    }
+
+    nav ul li {
+      margin: 0 25px;
+    }
+
+    nav ul li a {
+      color: #fff;
+      font-weight: 600;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 10px 15px;
+      transition: all 0.3s ease-in-out;
+    }
+
+    nav ul li a:hover {
+      background-color: #f39c12;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+
+    header {
+      background: url('https://plus.unsplash.com/premium_photo-1695635984900-248d6c918ff9?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3Dge') no-repeat center center/cover;
+      color: white;
+      text-align: center;
+      padding: 80px 20px 100px;
+      background-blend-mode: overlay;
+      background-color: rgba(0, 0, 0, 0.5);
+      font-family: 'Merriweather', serif;
+    }
+
+    header h2 {
+      font-size: 3.5em;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+    }
+
+    header p {
+      font-size: 1.6em;
+      font-style: italic;
+      margin-bottom: 30px;
+    }
+
+    .recipes-container {
+      max-width: 1200px;
+      margin: 60px auto 100px;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 40px;
+    }
+
+    .recipe-card {
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .recipe-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .recipe-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .recipe-content {
+      padding: 20px;
+      flex-grow: 1;
+    }
+
+    .recipe-content h3 {
+      font-family: 'Merriweather', serif;
+      font-size: 1.8em;
+      margin-bottom: 15px;
+      color: #2c3e50;
+    }
+
+    .recipe-content p {
+      font-size: 1.1em;
+      color: #555;
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+
+    .recipe-content a {
+      background-color: #f39c12;
+      color: white;
+      padding: 10px 25px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .recipe-content a:hover {
+      background-color: #e67e22;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    }
+
+.recipe-api-section {
+      background: linear-gradient(135deg, #fdfaf6, #f7f9fb);
+      padding: 80px 20px 100px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .api-card {
+      background: white;
+      max-width: 600px;
+      width: 100%;
+      border-radius: 25px;
+      padding: 40px 30px;
+      box-shadow: 0 12px 28px rgba(243, 156, 18, 0.25);
+      text-align: center;
+      font-family: 'Lora', serif;
+      color: #2c3e50;
+    }
+
+    .api-heading {
+      font-family: 'Merriweather', serif;
+      font-size: 2.7em;
+      color: #2c3e50;
+      margin-bottom: 15px;
+    }
+
+    .api-sub {
+      font-family: 'Lora', serif;
+      font-size: 1.25em;
+      color: #555;
+      max-width: 500px;
+      margin: 0 auto 40px;
+      line-height: 1.5;
+    }
+
+    .api-btn {
+      background-color: #f39c12;
+      color: white;
+      border-radius: 30px;
+      font-size: 1.2em;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+      border: none;
+      padding: 12px 50px;
+      cursor: pointer;
+      font-weight: 700;
+      box-shadow: 0 6px 18px rgba(243, 156, 18, 0.4);
+    }
+
+    .api-btn:hover {
+      background-color: #e67e22;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(230, 126, 34, 0.5);
+    }
+
+    #recipeResult {
+      margin-top: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 380px;
+    }
+
+    /* Spinner styles */
+    .spinner-border {
+      width: 4rem;
+      height: 4rem;
+      border-width: 0.5em;
+      color: #f39c12;
+      margin: 0 auto;
+    }
+
+/* Recipe Card */
+.recipe-card {
+  background: #ffffff;
+  border-radius: 20px;
+  max-width: 550px;
+  text-align: center;
+  padding: 30px;
+  transition: all 0.4s ease;
+}
+
+.recipe-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.recipe-img {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  border-radius: 15px;
+}
+
+.recipe-title {
+  font-family: 'Merriweather', serif;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.recipe-text {
+  font-family: 'Lora', serif;
+  color: #555;
+  font-size: 1em;
+  line-height: 1.6;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.recipe-btn {
+  background-color: #f39c12;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+    margin: 0 auto;
+
+}
+
+.recipe-btn:hover {
+  background-color: #e67e22;
+}
+
+/* Animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade {
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+
+    footer {
+      background-color: #2c3e50;
+      color: white;
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    footer a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    .social-icons {
+      margin: 20px 0;
+    }
+
+    .social-icons i {
+      font-size: 2em;
+      margin: 0 15px;
+      color: #fff;
+      transition: color 0.3s ease;
+      cursor: pointer;
+    }
+
+    .social-icons i:hover {
+      color: #f39c12;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Site Title Above Navigation -->
+  <div id="site-title">The Chef's Compass</div>
+
+  <!-- Navigation Bar -->
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="recipes.html" class="active">Recipes</a></li>
+      <li><a href="meal-planner.html">Meal Planner</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <header>
+    <h2>Delicious Recipes</h2>
+    <p>Explore a world of flavors with our curated recipes.</p>
+  </header>
+
+  <!-- Recipes Grid Section -->
+  <section class="recipes-container">
+    <div class="recipe-card">
+      <img src="https://littlespoonfarm.com/wp-content/uploads/2024/07/Pasta-Carbonara-Recipe.jpg" alt="Spaghetti Carbonara" />
+      <div class="recipe-content">
+        <h3>Spaghetti Carbonara</h3>
+        <p>Classic Italian dish of al dente spaghetti tossed in a silky,
+                rich sauce of egg, hard cheese, cured pork, and black pepper.
+</p><br><br>
+        <a href="https://somuchfoodblog.com/classic-spaghetti-and-meatballs/">View Recipe</a>
+      </div>
+    </div>
+
+    <div class="recipe-card">
+      <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=781&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Hawaiian Chicken Pizza" />
+      <div class="recipe-content">
+        <h3>Hawaiian Chicken Pizza</h3>
+        <p>Classic pizza with a perfect balance of sweet and savory flavors
+                from pineapple, tomato sauce, mozzarella, and chicken.<br><br><br>
+</p>
+        <a href="https://somuchfoodblog.com/easy-skillet-pan-pizza/">View Recipe</a>
+      </div>
+    </div>
+
+    <div class="recipe-card">
+      <img src="https://images.unsplash.com/photo-1574894709920-11b28e7367e3?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Vegetable Stir-Fry" />
+      <div class="recipe-content">
+        <h3>Lasagna</h3>
+        <p>Comforting Italian classic of tender pasta sheets layered with a
+                rich, savory filling and baked with a gooey, cheesy top.
+</p><br><br><br><br>
+        <a href="https://somuchfoodblog.com/lasagna-bolognese/">View Recipe</a>
+      </div>
+    </div>
+
+<div class="recipe-card">
+      <img src="https://images.unsplash.com/photo-1718777791262-c66d11baaa3b?q=80&w=764&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt=" Bibimbap" />
+      <div class="recipe-content">
+        <h3>Bibimbap</h3>
+        <p>Vibrant Korean dish of warm rice topped with a colorful array of
+                seasoned vegetables, savory meat, and a fried egg, all mixed
+                with a spicy gochujang sauce.
+
+</p><br><br>
+        <a href="recipe-vegetable-stir-fry.html">View Recipe</a>
+      </div>
+    </div>
+
+ <div class="recipe-card">
+      <img src="https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8YnVycml0b3xlbnwwfHwwfHx8MA%3D%3D" alt="Chicken Burrito" />
+      <div class="recipe-content">
+        <h3>Chicken Burrito</h3>
+        <p> Delicious, handheld meal of seasoned ingredients, like rice,
+                beans, and meat, all wrapped snugly in a warm flour tortilla.
+</p><br><br><br>
+        <a href="https://somuchfoodblog.com/chipotle-chicken-burrito-bowls/">View Recipe</a>
+      </div>
+    </div>
+
+
+    <div class="recipe-card">
+      <img src="https://plus.unsplash.com/premium_photo-1677686707450-66de10888b6c?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Garlic Bruschetta" />
+      <div class="recipe-content">
+        <h3>Garlic Bruschetta</h3>
+        <p>Toasted artisan bread topped with a vibrant mix of fresh
+                tomatoes, red onion, and basil, drizzled with balsamic glaze.
+</p><br><br><br>
+        <a href="recipe-chocolate-brownies.html">View Recipe</a>
+      </div>
+    </div>
+
+ <div class="recipe-card">
+      <img src="https://plus.unsplash.com/premium_photo-1694336203192-c9e7f2891b95?q=80&w=765&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Apple Pie" />
+      <div class="recipe-content">
+        <h3>Apple Pie</h3>
+        <p>A warm, classic American apple pie with a flaky, buttery crust,
+                generously filled with a blend of tender baked apples and
+                fragrant cinnamon, nutmeg, and clove.
+</p><br><br>
+        <a href="recipe-chocolate-brownies.html">View Recipe</a>
+      </div>
+    </div>
+
+<div class="recipe-card">
+      <img src="https://plus.unsplash.com/premium_photo-1695028378225-97fbe39df62a?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Tiramisu" />
+      <div class="recipe-content">
+        <h3>Tiramisu</h3>
+        <p>Layers of espresso-soaked ladyfingers and rich mascarpone cream,
+                finished with a delicate dusting of cocoa powder. A
+                sophisticated and timeless Italian treat.
+</p><br>
+        <a href="recipe-chocolate-brownies.html">View Recipe</a>
+      </div>
+    </div>
+
+<div class="recipe-card">
+      <img src="https://plus.unsplash.com/premium_photo-1722686461601-b2a018a4213b?q=80&w=955&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Berry Cheesecake" />
+      <div class="recipe-content">
+        <h3>Berry Cheesecake</h3>
+        <p>A velvety New York-style cheesecake on a buttery graham cracker
+                crust, topped with a vibrant, jewel-toned coulis of mixed
+                berries.
+</p><br><br><br>
+        <a href="recipe-chocolate-brownies.html">View Recipe</a>
+      </div>
+    </div>
+
+
+  </section>
+ <section class="recipe-api-section" aria-label="Recipe API Section">
+    <div class="api-card">
+      <h2 class="api-heading">Discover New Recipes with Our API</h2>
+      <p class="api-sub">Get inspired by fetching random recipes with just one click.</p>
+      <button class="api-btn" id="getRecipeBtn">Get Recipe</button>
+
+      <div id="recipeResult" aria-live="polite" aria-atomic="true">
+        <!-- Recipe Result or Loading Spinner will appear here -->
+      </div>
+    </div>
+  </section>
+
+
+  <script>
+    const getRecipeBtn = document.getElementById('getRecipeBtn');
+    const recipeResult = document.getElementById('recipeResult');
+
+    async function fetchRecipe() {
+  recipeResult.innerHTML = '<div class="spinner-border" role="status" aria-label="Loading..."></div>';
+
+  try {
+    const url = 'https://www.themealdb.com/api/json/v1/1/random.php';
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch recipe');
+    }
+
+    const data = await response.json();
+    const meal = data.meals[0];
+
+    const recipeHTML = `
+      <div class="recipe-card animate-fade">
+        <img src="${meal.strMealThumb}" alt="${meal.strMeal}" class="recipe-img" />
+        <h3 class="recipe-title">${meal.strMeal}</h3>
+        <p class="recipe-text">${meal.strInstructions.substring(0, 250)}...</p><br>
+        <a href="${meal.strSource || meal.strYoutube || '#'}" target="_blank" rel="noopener noreferrer" class="recipe-btn" aria-label="View full recipe for ${meal.strMeal}">View Full Recipe</a>
+      </div>
+    `;
+
+    recipeResult.innerHTML = recipeHTML;
+  } catch (error) {
+    recipeResult.innerHTML = `<p class="text-danger" role="alert">Oops! Something went wrong. Please try again later.</p>`;
+    console.error(error);
+  }
+}
+
+
+    getRecipeBtn.addEventListener('click', fetchRecipe);
+  </script>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 The Chef's Compass | <a href="privacy-policy.html">Privacy Policy</a> | <a href="terms.html">Terms of Use</a></p>
+    <div class="social-icons">
+      <a href="https://facebook.com"><i class="fab fa-facebook"></i></a>
+      <a href="https://instagram.com"><i class="fab fa-instagram"></i></a>
+      <a href="https://twitter.com"><i class="fab fa-twitter"></i></a>
+      <a href="https://pinterest.com"><i class="fab fa-pinterest"></i></a>
+    </div>
+    <p>Contact us: <a href="mailto:info@thechefscompass.com">info@thechefscompass.com</a></p>
+  </footer>
+
+</body>
+</html>
+

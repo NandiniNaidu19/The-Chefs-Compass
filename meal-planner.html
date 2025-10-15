@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meal Planner | The Chef's Compass</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Lora', serif;
+
+      background: linear-gradient(135deg, #f7f3f1, #eef2f3);
+      color: #2c3e50;
+    }
+ #site-title {
+      background: linear-gradient(90deg, #2c3e50, #3498db);
+      color: white;
+      text-align: center;
+      padding: 15px 0;
+      font-family: 'Merriweather', serif;
+      font-size: 2.5em;
+      letter-spacing: 3px;
+      font-weight: bold;
+      text-transform: uppercase;
+      user-select: none;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+
+
+
+    /* Navigation Bar */
+    nav {
+      background: linear-gradient(90deg, #2c3e50, #3498db);
+      padding: 20px 40px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    nav ul {
+      display: flex;
+      justify-content: center;
+      list-style: none;
+    }
+
+    nav ul li { margin: 0 25px; }
+
+    nav ul li a {
+      color: #fff;
+      font-weight: 600;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 10px 15px;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+    }
+
+    nav ul li a:hover {
+      background-color: #f39c12;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+
+    /* Hero Section */
+    header {
+      background: url('https://plus.unsplash.com/premium_photo-1695635984900-248d6c918ff9?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3Dge') no-repeat center center/cover;
+      color: white;
+      text-align: center;
+      padding: 140px 20px;
+      background-blend-mode: overlay;
+      background-color: rgba(0, 0, 0, 0.45);
+    }
+
+    header h1 {
+      font-family: "Merriweather", serif;
+      font-size: 3.8em;
+      letter-spacing: 1px;
+      margin-bottom: 15px;
+    }
+
+    header p {
+      font-size: 1.3em;
+      font-style: italic;
+      color: #f7f3f1;
+    }
+
+    /* Planner Section */
+    section {
+      padding: 80px 20px;
+      text-align: center;
+    }
+
+    section h2 {
+      font-family: "Merriweather", serif;
+      font-size: 3em;
+      margin-bottom: 25px;
+      color: #2c3e50;
+    }
+
+    section p {
+      font-size: 1.2em;
+      color: #555;
+      max-width: 800px;
+      margin: 0 auto 50px;
+      line-height: 1.7;
+    }
+
+    /* Table Container */
+    .planner-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      padding: 30px;
+    }
+
+    .meal-table {
+      width: 90%;
+      max-width: 1000px;
+      border-collapse: collapse;
+      backdrop-filter: blur(12px);
+      background: rgba(255, 255, 255, 0.75);
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      animation: fadeIn 1s ease;
+    }
+
+    .meal-table th {
+      background: linear-gradient(90deg, #2c3e50, #3498db);
+      color: #fff;
+      padding: 18px;
+      font-size: 1.2em;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .meal-table td {
+      padding: 15px;
+      font-size: 1.05em;
+      border-bottom: 1px solid #eee;
+      cursor: text;
+    }
+
+    .meal-table tr:last-child td { border-bottom: none; }
+
+    .meal-table tr:hover {
+      background-color: rgba(243, 156, 18, 0.08);
+      transition: background 0.3s ease;
+    }
+
+    .day-label {
+      font-weight: 600;
+      color: #2c3e50;
+    }
+
+    td[contenteditable="true"]:focus {
+      outline: 2px solid #f39c12;
+      background-color: rgba(255, 249, 236, 0.9);
+      border-radius: 6px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+#chartSection {
+  max-width: 350px;
+  margin: 0 auto;
+}
+
+#mealPieChart {
+  display: block;
+  margin: 0 auto;
+}
+
+
+    /* Footer */
+    footer {
+      background-color: #2c3e50;
+      color: white;
+      padding: 40px 20px;
+      text-align: center;
+      margin-top: 60px;
+    }
+
+    footer a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    footer a:hover { text-decoration: underline; }
+
+    .social-icons {
+      margin: 20px 0;
+    }
+
+    .social-icons i {
+      font-size: 2em;
+      margin: 0 15px;
+      color: #fff;
+      transition: color 0.3s ease;
+      cursor: pointer;
+    }
+
+    .social-icons i:hover { color: #f39c12; }
+
+    html { scroll-behavior: smooth; }
+  </style>
+</head>
+
+<body>
+ <div id="site-title">The Chef's Compass</div>
+
+  <!-- Navigation Bar -->
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="recipes.html" class="active">Recipes</a></li>
+      <li><a href="meal-planner.html">Meal Planner</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+  <!-- Hero -->
+  <header>
+    <h1>Plan Your Perfect Week</h1>
+    <p>Organize your meals, save time, and bring flavor to every day.</p>
+  </header>
+
+  <!-- Planner Section -->
+  <section>
+    <h2>Your Editable Weekly Meal Planner</h2>
+    <p>Click any meal to customize your plan. Your changes will be saved automatically for next time!</p>
+
+    <div class="planner-container">
+      <table class="meal-table" id="mealTable">
+        <thead>
+          <tr>
+            <th>Day</th>
+            <th>Breakfast</th>
+            <th>Lunch</th>
+            <th>Dinner</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="day-label">Monday</td><td contenteditable="true">Avocado Toast with Eggs</td><td contenteditable="true">Grilled Chicken Salad</td><td contenteditable="true">Spaghetti Carbonara</td></tr>
+          <tr><td class="day-label">Tuesday</td><td contenteditable="true">Greek Yogurt Parfait</td><td contenteditable="true">Veggie Wrap</td><td contenteditable="true">Teriyaki Salmon with Rice</td></tr>
+          <tr><td class="day-label">Wednesday</td><td contenteditable="true">Oatmeal with Berries</td><td contenteditable="true">Quinoa Bowl</td><td contenteditable="true">Chicken Stir Fry</td></tr>
+          <tr><td class="day-label">Thursday</td><td contenteditable="true">Smoothie Bowl</td><td contenteditable="true">Tomato Basil Soup</td><td contenteditable="true">Beef Tacos</td></tr>
+          <tr><td class="day-label">Friday</td><td contenteditable="true">Pancakes with Syrup</td><td contenteditable="true">Caesar Salad</td><td contenteditable="true">Shrimp Pasta</td></tr>
+          <tr><td class="day-label">Saturday</td><td contenteditable="true">Scrambled Eggs</td><td contenteditable="true">Chicken Sandwich</td><td contenteditable="true">Pizza Night!</td></tr>
+          <tr><td class="day-label">Sunday</td><td contenteditable="true">French Toast</td><td contenteditable="true">Veggie Burrito</td><td contenteditable="true">Roast Chicken</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<section id="chartSection" class="text-center my-5">
+  <h2 class="mb-4">Weekly Meal Breakdown</h2>
+  <canvas id="mealPieChart" width="300" height="300"></canvas>
+</section>
+<script>
+const ctx = document.getElementById('mealPieChart').getContext('2d');
+
+new Chart(ctx, {
+    type: 'pie',
+    data: {
+        labels: ['Breakfast', 'Lunch', 'Dinner'],
+        datasets: [{
+            data: [15, 7,7 ], // Example proportions
+            backgroundColor: ['#f39c12', '#3498db', '#2c3e50'],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        plugins: {
+            legend: {
+                position: 'bottom',
+                labels: {
+                    font: {
+                        size: 18
+                    }
+                }
+            }
+        }
+    }
+});
+</script>
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 The Chef's Compass | <a href="privacy-policy.html">Privacy Policy</a> | <a href="terms.html">Terms of Use</a></p>
+
+    <div class="social-icons">
+      <a href="#"><i class="fab fa-facebook"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fab fa-pinterest"></i></a>
+    </div>
+
+    <p>Contact us: <a href="mailto:info@thechefscompass.com">info@thechefscompass.com</a></p>
+  </footer>
+
+  <script>
+    // Save edits to localStorage
+    const table = document.getElementById('mealTable');
+    const storageKey = "mealPlannerData";
+
+    function saveData() {
+      const rows = Array.from(table.querySelectorAll("tbody tr")).map(tr =>
+        Array.from(tr.querySelectorAll("td")).slice(1).map(td => td.textContent.trim())
+      );
+      localStorage.setItem(storageKey, JSON.stringify(rows));
+    }
+
+    function loadData() {
+      const saved = JSON.parse(localStorage.getItem(storageKey));
+      if (!saved) return;
+      const trs = table.querySelectorAll("tbody tr");
+      saved.forEach((meals, i) => {
+        meals.forEach((meal, j) => {
+          trs[i].querySelectorAll("td")[j + 1].textContent = meal;
+        });
+      });
+    }
+
+    table.addEventListener("input", saveData);
+    window.addEventListener("load", loadData);
+  </script>
+</body>
+</html>
